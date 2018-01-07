@@ -1,0 +1,28 @@
+{
+  "name": "scrape-clt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamtre9115/ScrapeClt.git"
+  },
+  "author": "Tresean Adam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adamtre9115/ScrapeClt/issues"
+  },
+  "homepage": "https://github.com/adamtre9115/ScrapeClt#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.0.0-rc2",
+    "request": "^2.83.0"
+  }
+}
