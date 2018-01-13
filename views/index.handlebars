@@ -32,3 +32,30 @@
         </p>
     </div>
 </section>
+
+<section id="featured">
+    <div class="container">
+        {{#if scrapedData}} {{#each scrapedData}}
+        <div class="card">
+            <div class="card-header">
+                <h3>Featured in Charlotte</h3>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{scrapedData.title}}</h5>
+                <p class="card-text">{{scrapedData.sumary}}</p>
+                <a href="{{scrapedData.link}}" class="btn btn-primary">Visit Article</a>
+            </div>
+        </div>
+        {{/each}} {{else}}
+        <div class="card">
+            <div class="card-header text-center">
+                <h3>Looks like we don't have any articles yet
+                    <span>
+                        <i class="far fa-frown"></i>
+                    </span>
+                </h3>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</section>

@@ -24,7 +24,6 @@ app.get("/scrape", (req, res) => {
             var link = $(element).children('.teaser').children('.title').children("a").attr("href");
             var summary = $(element).children('.teaser').children('.summary').text();
 
-
             // If this found element had a title, link and, summary
             // length greater than 17 because it excluedes button links that are returned
             if (title.length > 17 && link && summary) {
@@ -34,19 +33,21 @@ app.get("/scrape", (req, res) => {
                     link: link,
                     summary: summary
                 }
-                // Insert the data in the scrapedData db
-                var scrapedArticles = new articles(scrapedData);
 
-                scrapedArticles.save(function (error, doc) {
-                    // Send any errors to the browser
-                    if (error) {
-                        console.log(error);
-                    }
-                    // Otherwise, send the new doc to the browser
-                    else {
-                        console.log("articles sent to db");
-                    }
-                });
+                // Insert the data in the scrapedData db
+                /* var scrapedArticles = new articles(scrapedData);
+
+                 scrapedArticles.save(function (error, doc) {
+                     // Send any errors to the browser
+                     if (error) {
+                         console.log(error);
+                     }
+                     // Otherwise, send the new doc to the browser
+                     else {
+                         console.log("articles sent to db");
+                     }
+                 });*/
+
             }
         })
     })
