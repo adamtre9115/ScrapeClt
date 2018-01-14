@@ -2,7 +2,7 @@
     {{!-- begin container --}}
     <div class="container">
         <a class="navbar-brand" href="#">Scrape CLT</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        <button class="navbar-toggler" type="button" articles-toggle="collapse" articles-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,15 +35,15 @@
 
 <section id="featured">
     <div class="container">
-        {{#if scrapedData}} {{#each scrapedData}}
+        {{#if articles}} {{#each articles}}
         <div class="card">
             <div class="card-header">
-                <h3>Featured in Charlotte</h3>
+                <h4>{{title}}</h4>
             </div>
             <div class="card-body">
-                <h5 class="card-title">{{scrapedData.title}}</h5>
-                <p class="card-text">{{scrapedData.sumary}}</p>
-                <a href="{{scrapedData.link}}" class="btn btn-primary">Visit Article</a>
+
+                <p class="card-text">{{summary}}</p>
+                <a href="{{link}}" class="btn btn-primary">Visit Article</a>
             </div>
         </div>
         {{/each}} {{else}}
