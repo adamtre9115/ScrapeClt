@@ -3,12 +3,40 @@ const app = express();
 const request = require("request");
 const cheerio = require("cheerio");
 const mongoose = require("mongoose");
+const articles = require("../models/articles");
 
-var articles = require("../models/models.js");
+
 // main route
 app.get("/", (req, res) => {
     res.render("index")
 })
+
+// saved articles 
+app.get("/saved", (req, res) => {
+
+    function getSaved() {
+        return new Promise(function(resolve, reject) {
+            // query for saved articles
+            articles.find({
+                'isSaved': true
+            }, function(err, docs) {
+                if (!err) {
+                    var newSaved = {
+                        articles: docs
+                    }
+                    res.render("saved", newSaved) // resolve promise if found
+                    resolve()
+                } else {
+                    reject()
+                    console.log(err)
+                }
+            })
+        })
+    }
+    getSaved()
+})
+
+
 
 // scrape 
 app.get("/scrape", (req, res) => {
@@ -73,6 +101,25 @@ app.get("/scrape", (req, res) => {
         })
 
     })
+})
+
+// save
+app.post("/saveIt", (req, res) => {
+    // create variable id
+    var id = req.body.id;
+    // query db for specific article
+    articles.findByIdAndUpdate(id, {
+        $set: {
+            isSaved: true
+        }
+    }, function(err, articles) {
+        if (!err) {
+            console.log("success")
+        } else {
+            console.log(err)
+        }
+    })
+
 })
 
 module.exports = app;

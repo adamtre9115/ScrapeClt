@@ -1,13 +1,12 @@
 const mongoose = require("mongoose");
-
-mongoose.connect('mongodb://localhost/articlesdb');
-
+// const db = require("../db/db.js");
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+db.once('open', function() {
     console.log("connected");
 });
 
+mongoose.connect('mongodb://localhost/articlesdb');
 // mongoose schema
 
 var articleSchema = mongoose.Schema({
@@ -25,10 +24,23 @@ var articleSchema = mongoose.Schema({
         type: String,
         trim: true,
         required: true
-    }
+    },
+    isSaved: {
+        type: Boolean,
+        default: false
+    },
+    comments: [{
+        body: String,
+        date: Date
+    }],
 });
+
+
+
+
 
 // This creates our model from the above schema, using mongoose's model method
 var articles = mongoose.model("articles", articleSchema);
+
 
 module.exports = articles;
