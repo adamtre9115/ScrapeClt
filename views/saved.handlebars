@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/scrape">New Articles</a>
@@ -30,33 +30,76 @@
         <hr class="my-4">
         <p class="lead">Your personal collection of news around the Queen City!
         </p>
+        {{#if message}}
+        <h3>{{message}}</h3>
+        {{/if}}
     </div>
 </section>
 
 <section id="featured">
     <div class="container">
-        {{#if articles}} {{#each articles}}
-        <div class="card">
-            <div class="card-header">
-                <h4 class="title">{{title}}</h4>
-            </div>
-            <div class="card-body">
+        <div class="articles">
+            {{#if articles}} {{#each articles}}
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="title">{{title}}</h4>
+                </div>
+                <div class="card-body">
 
-                <p class="summary card-text">{{summary}}</p>
-                <a href="{{link}}" target="_blank" class="btn btn-primary link">Visit Article</a>
-                <a href="#" name="{{_id}}" class="btn btn-primary saveBtn">Delete it</a>
+                    <p class="summary card-text">{{summary}}</p>
+                    <a href="{{link}}" target="_blank" class="btn btn-primary link">Visit Article</a>
+                    <a href="#" name="{{_id}}" class="btn btn-primary comBtn">
+                        <span>
+                            <i class="fas fa-comment-alt"></i> Comment</span>
+                    </a>
+                    <a href="#" name="{{_id}}" class="btn btn-danger delBtn">
+                        <span>
+                            <i class="far fa-trash-alt"></i>
+                        </span> Delete it</a>
+                </div>
+            </div>
+            {{/each}} {{else}}
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Sorry, no saved articles here...
+                        <span>
+                            <i class="far fa-frown"></i>
+                        </span>
+                    </h3>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+        <!-- Button trigger modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Comment Article</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="comments">
+                        {{#if articles}} {{#each articles}}
+                        <div class="card">
+                            <div class="card-body">
+                                <p>{{comments}}</p>
+                            </div>
+                        </div>
+                        {{/each}} {{/if}}
+                    </div>
+                    <div class="modal-body col-12">
+                        <p>Don't be shy. Leave a comment...</p>
+                        <textarea class="cmtTxt" cols="30" rows="10" width="100"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary saveBtn">Save changes</button>
+                    </div>
+                </div>
             </div>
         </div>
-        {{/each}} {{else}}
-        <div class="card">
-            <div class="card-header text-center">
-                <h3>Sorry, no saved articles here...
-                    <span>
-                        <i class="far fa-frown"></i>
-                    </span>
-                </h3>
-            </div>
-        </div>
-        {{/if}}
     </div>
 </section>

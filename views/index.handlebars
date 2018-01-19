@@ -35,28 +35,33 @@
 
 <section id="featured">
     <div class="container">
-        {{#if articles}} {{#each articles}}
-        <div class="card">
-            <div class="card-header">
-                <h4 class="title">{{title}}</h4>
-            </div>
-            <div class="card-body">
+        <div class="articles">
+            {{#if articles}} {{#each articles}}
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="title">{{title}}</h4>
+                </div>
+                <div class="card-body">
 
-                <p class="summary card-text">{{summary}}</p>
-                <a href="{{link}}" target="_blank" class="btn btn-primary link">Visit Article</a>
-                <a href="#" name="{{_id}}" class="btn btn-primary saveBtn">Save it</a>
+                    <p class="summary card-text">{{summary}}</p>
+                    <a href="{{link}}" target="_blank" class="btn btn-primary link">Visit Article</a>
+                    <a href="#" name="{{_id}}" class="btn btn-primary saveBtn">
+                        <span>
+                            <i class="far fa-bookmark"></i>
+                        </span> Save it</a>
+                </div>
             </div>
-        </div>
-        {{/each}} {{else}}
-        <div class="card">
-            <div class="card-header text-center">
-                <h3>Looks like we don't have any articles yet
-                    <span>
-                        <i class="far fa-frown"></i>
-                    </span>
-                </h3>
+            {{/each}} {{else}}
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Looks like we don't have any articles yet
+                        <span>
+                            <i class="far fa-frown"></i>
+                        </span>
+                    </h3>
+                </div>
             </div>
+            {{/if}}
         </div>
-        {{/if}}
     </div>
 </section>

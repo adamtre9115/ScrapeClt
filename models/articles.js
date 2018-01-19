@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 // const db = require("../db/db.js");
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -30,9 +31,9 @@ var articleSchema = mongoose.Schema({
         default: false
     },
     comments: [{
-        body: String,
-        date: Date
-    }],
+        type: Schema.Types.ObjectId,
+        ref: "comments"
+    }]
 });
 
 

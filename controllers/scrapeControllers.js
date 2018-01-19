@@ -4,11 +4,12 @@ const request = require("request");
 const cheerio = require("cheerio");
 const mongoose = require("mongoose");
 const articles = require("../models/articles");
+const comments = require("../models/comments");
 
 
 // main route
 app.get("/", (req, res) => {
-    res.render("index")
+    res.render("index",)
 })
 
 // saved articles 
@@ -18,17 +19,17 @@ app.get("/saved", (req, res) => {
         return new Promise(function(resolve, reject) {
             // query for saved articles
             articles.find({
-                'isSaved': true
-            }, function(err, docs) {
+                isSaved: true
+            }).populate("comments").exec(function(err, docs) {
                 if (!err) {
                     var newSaved = {
                         articles: docs
                     }
-                    res.render("saved", newSaved) // resolve promise if found
-                    resolve()
+                    res.render("saved", newSaved);
+                    resolve();
                 } else {
-                    reject()
-                    console.log(err)
+                    console.log(err);
+                    reject();
                 }
             })
         })
@@ -118,6 +119,57 @@ app.post("/saveIt", (req, res) => {
         } else {
             console.log(err)
         }
+    })
+
+
+    // delete
+    app.post("/deleteIt", (req, res) => {
+        var id = req.body.id;
+
+        articles.findByIdAndUpdate(id, {
+            $set: {
+                isSaved: false
+            }
+        }, function(err, articles) {
+            if (!err) {
+                console.log("successfully removed");
+            } else {
+                console.log(err);
+            }
+        })
+
+    })
+
+    // comment
+    app.post("/comment", (req, res) => {
+        var id = req.body.id;
+        var newComment = new comments({
+            comment: req.body.comment
+        });
+
+        newComment.save(function(err, doc) {
+            if (err) {
+                console.log(error);
+            } else {
+                articles.findOneAndUpdate({
+                    "_id": id
+                }, {
+                    $push: {
+                        "comments": doc._id
+                    }
+                }, {
+                    new: true
+                })
+                    .exec(function(err, doc) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.redirect("/");
+                        }
+                    });
+            }
+        });
+
     })
 
 })
