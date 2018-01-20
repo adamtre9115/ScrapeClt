@@ -1,8 +1,13 @@
 const mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
 var commentSchema = mongoose.Schema({
     comment: {
         type: String
+    },
+    article: {
+        type: Schema.Types.ObjectId,
+        ref: "articles"
     }
 
 });

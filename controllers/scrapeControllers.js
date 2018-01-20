@@ -12,6 +12,30 @@ app.get("/", (req, res) => {
     res.render("index",)
 })
 
+app.get("/articles", (req, res) => {
+    function getUnsaved() {
+        return new Promise(function(resolve, reject) {
+            // query for saved articles
+            articles.find({
+                isSaved: false
+            }).populate("comments").exec(function(err, docs) {
+                if (!err) {
+                    console.log(docs[0].comments)
+                    var unSaved = {
+                        articles: docs
+                    }
+                    res.render("index", unSaved);
+                    resolve();
+                } else {
+                    console.log(err);
+                    reject();
+                }
+            })
+        })
+    }
+    getUnsaved()
+
+})
 // saved articles 
 app.get("/saved", (req, res) => {
 
@@ -61,6 +85,7 @@ app.get("/scrape", (req, res) => {
                         if (title.length > 17 && link && summary) {
                             // create a new object frome the articles
                             var scrapedData = {
+                                _id: new mongoose.Types.ObjectId(),
                                 title: title,
                                 link: link,
                                 summary: summary
@@ -144,7 +169,7 @@ app.post("/saveIt", (req, res) => {
     app.post("/comment", (req, res) => {
         var id = req.body.id;
         var newComment = new comments({
-            comment: req.body.comment
+            comment: req.body.comment,
         });
 
         newComment.save(function(err, doc) {

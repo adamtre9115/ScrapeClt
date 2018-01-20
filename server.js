@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const path = require("path");
 
 // this is the port we'll be listening on
 var port = process.env.port || 3000;
@@ -17,7 +18,8 @@ app.use(bodyParser.urlencoded({
 
 // set up handlebars
 app.engine("handlebars", exphbs({
-    defaultLayout: "main"
+    defaultLayout: "main",
+    partialsDir: path.join(__dirname, "/views/layouts/partials")
 }));
 
 app.set("view engine", "handlebars");
@@ -27,6 +29,6 @@ var routes = require("./controllers/scrapeControllers.js");
 
 app.use("/", routes);
 
-app.listen(port, function () {
+app.listen(port, function() {
     console.log("I'm listening on port " + port);
 });
