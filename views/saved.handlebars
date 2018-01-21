@@ -48,7 +48,7 @@
 
                     <p class="summary card-text">{{summary}}</p>
                     <a href="{{link}}" target="_blank" class="btn btn-primary link">Visit Article</a>
-                    <a href="#" name="{{_id}}" class="btn btn-primary comBtn">
+                    <a href="#" name="{{_id}}" data-toggle="modal" data-target="#commModal{{this.id}}" class="btn btn-primary comBtn">
                         <span>
                             <i class="fas fa-comment-alt"></i> Comment</span>
                     </a>
@@ -73,3 +73,5 @@
         {{#each articles}} {{> modal }} {{/each}}
     </div>
 </section>
+
+{{> footer}}

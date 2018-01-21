@@ -20,7 +20,6 @@ app.get("/articles", (req, res) => {
                 isSaved: false
             }).populate("comments").exec(function(err, docs) {
                 if (!err) {
-                    console.log(docs[0].comments)
                     var unSaved = {
                         articles: docs
                     }
@@ -85,7 +84,6 @@ app.get("/scrape", (req, res) => {
                         if (title.length > 17 && link && summary) {
                             // create a new object frome the articles
                             var scrapedData = {
-                                _id: new mongoose.Types.ObjectId(),
                                 title: title,
                                 link: link,
                                 summary: summary
@@ -94,14 +92,26 @@ app.get("/scrape", (req, res) => {
                             // Insert the data in the scrapedData db
                             var scrapedArticles = new articles(scrapedData);
 
-                            scrapedArticles.save(function(error, doc) {
-                                // promise has been fulfilled if no errors
-                                if (!error) {
-                                    resolve()
+                            articles.count({
+                                title: scrapedData.title
+                            }, function(err, articles) {
+
+                                if (articles === 0) {
+
+                                    scrapedArticles.save(function(error, doc) {
+                                        // promise has been fulfilled if no errors
+                                        if (!error) {
+                                            resolve()
+                                        } else {
+                                            console.log(error)
+                                        }
+                                    });
                                 } else {
-                                    console.log(error)
+                                    console.log("These articles already exist in the database")
                                 }
-                            });
+                            })
+
+
                         }
                     })
                 } else {
@@ -140,7 +150,7 @@ app.post("/saveIt", (req, res) => {
         }
     }, function(err, articles) {
         if (!err) {
-            console.log("success")
+            console.log("saved")
         } else {
             console.log(err)
         }
@@ -168,18 +178,23 @@ app.post("/saveIt", (req, res) => {
     // comment
     app.post("/comment", (req, res) => {
         var id = req.body.id;
+        var name = req.body.name;
+        var comment = req.body.comment;
+
         var newComment = new comments({
-            comment: req.body.comment,
+            name: name,
+            comment: comment,
         });
 
         newComment.save(function(err, doc) {
             if (err) {
-                console.log(error);
+                console.log(err);
             } else {
                 articles.findOneAndUpdate({
                     "_id": id
                 }, {
                     $push: {
+                        "name": doc._id,
                         "comments": doc._id
                     }
                 }, {
@@ -189,6 +204,7 @@ app.post("/saveIt", (req, res) => {
                         if (err) {
                             console.log(err);
                         } else {
+                            console.log("commented!")
                             res.redirect("/");
                         }
                     });
@@ -197,6 +213,19 @@ app.post("/saveIt", (req, res) => {
 
     })
 
+})
+
+app.post("/deleteComm", (req, res) => {
+    var id = req.body.id;
+    console.log(id);
+
+    comments.findByIdAndRemove(id, function(err, article) {
+        if (err) {
+            console.log("err")
+        } else {
+            res.sendStatus(200)
+        }
+    })
 })
 
 module.exports = app;

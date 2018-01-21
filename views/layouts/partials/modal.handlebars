@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="commModal{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,13 +13,21 @@
                 {{#if this.comments}} {{#each this.comments}}
                 <div class="card">
                     <div class="card-body">
-                        <div class="col-6">
-                            <p>{{this.comment}}</p>
-                            <button class="btn btn-danger">
-                                <span>
-                                    <i class="far fa-trash-alt"></i>
-                                </span>
-                            </button>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <p>
+                                    <b>{{this.name}}</b>
+                                </p>
+                                <p>{{this.comment}}</p>
+                            </div>
+
+                            <div class="col-md-2">
+                                <button id="del{{this._id}}" data-id="{{this.id}}" class="btn btn-danger comDelBtn">
+                                    <span>
+                                        <i class="far fa-trash-alt"></i>
+                                    </span>
+                                </button>
+                            </div>
 
                         </div>
                     </div>
@@ -28,7 +36,10 @@
             </div>
             <div class="modal-body col-12">
                 <p>Don't be shy. Leave a comment...</p>
-                <textarea class="cmtTxt" cols="30" rows="10" width="100"></textarea>
+                <label for="name{{this.id}}">Name</label>
+                <input type="text" name="input{{this.id}}" id="name{{this.id}}" class="nameCmt form-control" placeholder="Care to leave your name?"
+                    required>
+                <textarea class="cmtTxt  form-control" id="text{{this.id}}" name="textArea{{this.id}}" cols="30" rows="10" placeholder="Leave a comment"></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

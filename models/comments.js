@@ -2,8 +2,13 @@ const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var commentSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
     comment: {
-        type: String
+        type: String,
+        required: true
     },
     article: {
         type: Schema.Types.ObjectId,
