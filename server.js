@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
+const dotenv = require("dotenv").config();
 const bodyParser = require("body-parser");
 const path = require("path");
+
 
 // this is the port we'll be listening on
 var port = process.env.port || 3000;

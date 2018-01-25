@@ -7,7 +7,9 @@ db.once('open', function() {
     console.log("connected");
 });
 
-mongoose.connect('mongodb://localhost/articlesdb');
+mongoose.connect(process.env.MURL);
+
+// mongoose.connect('mongodb://localhost/articlesdb');
 // mongoose schema
 
 var articleSchema = mongoose.Schema({

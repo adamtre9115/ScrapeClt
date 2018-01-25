@@ -143,7 +143,7 @@ app.get("/scrape", (req, res) => {
 app.post("/saveIt", (req, res) => {
     // create variable id
     var id = req.body.id;
-    // query db for specific article
+    // query db for specific article and set isSaved to true
     articles.findByIdAndUpdate(id, {
         $set: {
             isSaved: true
@@ -160,7 +160,7 @@ app.post("/saveIt", (req, res) => {
     // delete
     app.post("/deleteIt", (req, res) => {
         var id = req.body.id;
-
+        // search for the specific article by ID and set saved to false
         articles.findByIdAndUpdate(id, {
             $set: {
                 isSaved: false
@@ -180,12 +180,12 @@ app.post("/saveIt", (req, res) => {
         var id = req.body.id;
         var name = req.body.name;
         var comment = req.body.comment;
-
+        // form a new comment object to save to db with name and comment
         var newComment = new comments({
             name: name,
             comment: comment,
         });
-
+        // save the comment to the db
         newComment.save(function(err, doc) {
             if (err) {
                 console.log(err);
@@ -218,7 +218,7 @@ app.post("/saveIt", (req, res) => {
 app.post("/deleteComm", (req, res) => {
     var id = req.body.id;
     console.log(id);
-
+    // search for selected comment by ID then remove it
     comments.findByIdAndRemove(id, function(err, article) {
         if (err) {
             console.log("err")
