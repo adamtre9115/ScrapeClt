@@ -6,7 +6,7 @@ const path = require("path");
 
 
 // this is the port we'll be listening on
-var port = process.env.port || 3000;
+var port = process.env.PORT || 3000;
 
 // pull static files from the public directory
 app.use(express.static("public"));
