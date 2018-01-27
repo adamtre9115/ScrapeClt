@@ -7,9 +7,9 @@ db.once('open', function() {
     console.log("connected");
 });
 
-// mongoose.connect('mongodb://adamtre9115:8151991Tre!@ds129023.mlab.com:29023/scraperdb');
+mongoose.connect(process.env.MURL);
 
-mongoose.connect('mongodb://localhost/articlesdb');
+// mongoose.connect('mongodb://localhost/articlesdb');
 // mongoose schema
 
 var articleSchema = mongoose.Schema({
