@@ -30,11 +30,32 @@
 
 footer {
     padding: 10px;
-    margin-top: 10px;
+    margin-top: 15px;
     background-color: #7c7988;
 }
 
 footer a {
     color: #000;
     text-decoration: none;
+}
+
+@media (min-width: 1024px) {
+    .jumbotron {
+        height: 45vh;
+    }
+}
+
+@media (min-width: 1024px) and (min-height: 1366px) {
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+}
+
+@media (min-width: 1920px) {
+    .jumbotron {
+        background: url("../images/skyline2.jpg");
+        height: 60vh;
+    }
 }

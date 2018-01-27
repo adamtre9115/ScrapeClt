@@ -7,9 +7,9 @@ db.once('open', function() {
     console.log("connected");
 });
 
-mongoose.connect('mongodb://adamtre9115:8151991Tre!@ds129023.mlab.com:29023/scraperdb');
+// mongoose.connect('mongodb://adamtre9115:8151991Tre!@ds129023.mlab.com:29023/scraperdb');
 
-// mongoose.connect('mongodb://localhost/articlesdb');
+mongoose.connect('mongodb://localhost/articlesdb');
 // mongoose schema
 
 var articleSchema = mongoose.Schema({
@@ -31,6 +31,11 @@ var articleSchema = mongoose.Schema({
     isSaved: {
         type: Boolean,
         default: false
+    },
+    timestamps: {
+        type: Date,
+        default: Date.now,
+        required: true
     },
     comments: [{
         type: Schema.Types.ObjectId,

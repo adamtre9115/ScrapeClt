@@ -18,7 +18,9 @@ app.get("/articles", (req, res) => {
             // query for saved articles
             articles.find({
                 isSaved: false
-            }).populate("comments").exec(function(err, docs) {
+            }).populate("comments").sort({
+                timestamps: -1
+            }).exec(function(err, docs) {
                 if (!err) {
                     var unSaved = {
                         articles: docs
