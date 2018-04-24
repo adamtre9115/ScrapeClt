@@ -1,5 +1,6 @@
 .jumbotron {
     background: url("../images/skyline.jpg");
+    background-repeat: no-repeat;
     width: 100%;
     height: 60vh;
     padding-top: 70px;
